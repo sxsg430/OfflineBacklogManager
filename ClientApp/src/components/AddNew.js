@@ -2,6 +2,7 @@
 import { Alert, Input, ButtonGroup } from 'reactstrap';
 import StatusDropdown from './ui_components/StatusDropdown';
 import GameTitle from './ui_components/GameTitle';
+import OwnershipDropdown from './ui_components/OwnershipDropdown';
 
 export class AddNew extends Component {
     static displayName = AddNew.name;
@@ -11,7 +12,8 @@ export class AddNew extends Component {
 
         this.state = {
             currentStatus: 'Status',
-            currentTitle: ''
+            currentTitle: '',
+            currentOwnership: 'Ownership'
         }
 
     }
@@ -26,6 +28,11 @@ export class AddNew extends Component {
         this.setState({ currentTitle: internalVal });
     }
 
+    updateOwnership = (value) => {
+        let internalVal = value;
+        this.setState({ currentOwnership: internalVal });
+    }
+
     render() {
         return (
             <main>
@@ -35,6 +42,7 @@ export class AddNew extends Component {
                 <ButtonGroup>
                     <StatusDropdown updateState={this.updateStatus} />
                     <GameTitle updateState={this.updateTitle} />
+                    <OwnershipDropdown updateState={this.updateOwnership} />
                 </ButtonGroup>
             </main>
             )
