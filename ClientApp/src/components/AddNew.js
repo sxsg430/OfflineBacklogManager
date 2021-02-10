@@ -3,6 +3,7 @@ import { Alert, Input, ButtonGroup } from 'reactstrap';
 import StatusDropdown from './ui_components/StatusDropdown';
 import GameTitle from './ui_components/GameTitle';
 import OwnershipDropdown from './ui_components/OwnershipDropdown';
+import Achievement from './ui_components/Achievement';
 
 export class AddNew extends Component {
     static displayName = AddNew.name;
@@ -13,7 +14,9 @@ export class AddNew extends Component {
         this.state = {
             currentStatus: 'Status',
             currentTitle: '',
-            currentOwnership: 'Ownership'
+            currentOwnership: 'Ownership',
+            currentAchievement: 0,
+            currentAchievementMax: 0
         }
 
     }
@@ -33,17 +36,27 @@ export class AddNew extends Component {
         this.setState({ currentOwnership: internalVal });
     }
 
+    updateAchievement1 = (value) => {
+        let internalVal = value;
+        this.setState({ currentAchievement: internalVal });
+    }
+
+    updateAchievement2 = (value) => {
+        let internalVal = value;
+        this.setState({ currentAchievementMax: internalVal });
+    }
+
     render() {
         return (
             <main>
                 <Alert color="primary">
                     Placeholder element.
                 </Alert>
-                <ButtonGroup>
-                    <StatusDropdown updateState={this.updateStatus} />
-                    <GameTitle updateState={this.updateTitle} />
-                    <OwnershipDropdown updateState={this.updateOwnership} />
-                </ButtonGroup>
+                <StatusDropdown updateState={this.updateStatus} />
+                <GameTitle updateState={this.updateTitle} />
+                <OwnershipDropdown updateState={this.updateOwnership} />
+                <br />
+                <Achievement updateState={this.updateAchievement1} updateState2={this.updateAchievement2} />
             </main>
             )
     }
