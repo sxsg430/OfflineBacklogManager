@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Alert, Input, ButtonGroup } from 'reactstrap';
 import StatusDropdown from './ui_components/StatusDropdown';
+import GameTitle from './ui_components/GameTitle';
 
 export class AddNew extends Component {
     static displayName = AddNew.name;
@@ -9,7 +10,8 @@ export class AddNew extends Component {
         this.updateStatus = this.updateStatus.bind(this);
 
         this.state = {
-            currentStatus: 'Status'
+            currentStatus: 'Status',
+            currentTitle: ''
         }
 
     }
@@ -19,6 +21,11 @@ export class AddNew extends Component {
         this.setState({ currentStatus: internalVal });
     }
 
+    updateTitle = (value) => {
+        let internalVal = value;
+        this.setState({ currentTitle: internalVal });
+    }
+
     render() {
         return (
             <main>
@@ -26,7 +33,8 @@ export class AddNew extends Component {
                     Placeholder element.
                 </Alert>
                 <ButtonGroup>
-                    <StatusDropdown updateState={this.updateStatus}/>
+                    <StatusDropdown updateState={this.updateStatus} />
+                    <GameTitle updateState={this.updateTitle} />
                 </ButtonGroup>
             </main>
             )
