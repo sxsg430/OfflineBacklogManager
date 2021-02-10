@@ -4,6 +4,7 @@ import StatusDropdown from './ui_components/StatusDropdown';
 import GameTitle from './ui_components/GameTitle';
 import OwnershipDropdown from './ui_components/OwnershipDropdown';
 import Achievement from './ui_components/Achievement';
+import Progress from './ui_components/Progress'
 
 export class AddNew extends Component {
     static displayName = AddNew.name;
@@ -16,7 +17,8 @@ export class AddNew extends Component {
             currentTitle: '',
             currentOwnership: 'Ownership',
             currentAchievement: 0,
-            currentAchievementMax: 0
+            currentAchievementMax: 0,
+            currentProgress: ''
         }
 
     }
@@ -46,17 +48,19 @@ export class AddNew extends Component {
         this.setState({ currentAchievementMax: internalVal });
     }
 
+    updateProgress = (value) => {
+        let internalVal = value;
+        this.setState({ currentProgress: internalVal });
+    }
+
     render() {
         return (
             <main>
-                <Alert color="primary">
-                    Placeholder element.
-                </Alert>
-                <StatusDropdown updateState={this.updateStatus} />
                 <GameTitle updateState={this.updateTitle} />
                 <OwnershipDropdown updateState={this.updateOwnership} />
-                <br />
+                <StatusDropdown updateState={this.updateStatus} />
                 <Achievement updateState={this.updateAchievement1} updateState2={this.updateAchievement2} />
+                <Progress updateState={this.updateProgress} />
             </main>
             )
     }
