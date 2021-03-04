@@ -69,6 +69,18 @@ export class AddNew extends Component {
                 <Achievement updateState={this.updateAchievement1} updateState2={this.updateAchievement2} />
                 <Progress updateState={this.updateProgress} />
                 <PlatformDropdown updateState={this.updatePlatform} />
+                <br />
+                <br />
+                <form action="/addGame" method="post" encType="multipart/form-data">
+                    <Input type="hidden" name="title" value={this.state.currentTitle} />
+                    <Input type="hidden" name="status" value={this.state.currentStatus} />
+                    <Input type="hidden" name="ownership" value={this.state.currentOwnership} />
+                    <Input type="hidden" name="achievement" value={this.state.currentAchievement} />
+                    <Input type="hidden" name="achievementmax" value={this.state.currentAchievementMax} />
+                    <Input type="hidden" name="progress" value={this.state.currentProgress} />
+                    <Input type="hidden" name="platform" value={this.state.currentPlatform} />
+                    <Input type="submit" value="Submit" style={{ width: "100px" }} />
+                </form>
             </main>
             )
     }
