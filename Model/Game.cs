@@ -14,13 +14,13 @@ namespace OfflineBacklogManager.Model
         // gamesystem - The system the game belongs to (such as Steam, Xbox One, PS4, etc)
         public string gamesystem { get; set; }
         // ownership - Represents different ownership types for a game. Values yet to be decided
-        public int ownership { get; set; }
+        public string ownership { get; set; }
         // status - Represents progress status, such as not starting a game or 100%ing one. Values yet to be decided
-        public int status { get; set; }
+        public string status { get; set; }
         // achievement - Number of achievements currently completed
-        public int achievement { get; set; }
+        public string achievement { get; set; }
         // achievement_max - Total number of achievements in a game.
-        public int achievement_max { get; set; }
+        public string achievement_max { get; set; }
         // progress - Text field for current progress information, stored as Base64 to mitigate potential MySQL Unicode issues
         public string progress { get; set; }
         // playing - 1 if the user is currently playing the game.
