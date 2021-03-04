@@ -21,6 +21,7 @@ namespace OfflineBacklogManager
         {
 
             services.AddControllersWithViews();
+            services.Add(new ServiceDescriptor(typeof(Model.SQL), new Model.SQL(Configuration.GetConnectionString("DefaultConnection"))));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
