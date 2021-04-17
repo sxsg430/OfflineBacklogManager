@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OfflineBacklogManager.DBContexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace OfflineBacklogManager
 {
@@ -19,6 +22,9 @@ namespace OfflineBacklogManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string mysqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<OBMDBContext>(options => options.UseMySQL(mysqlConnectionString));
+
 
             services.AddControllersWithViews();
 
