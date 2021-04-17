@@ -18,7 +18,7 @@ namespace OfflineBacklogManager.DBContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Game>().ToTable("UserData");
+            modelBuilder.Entity<Game>().ToTable("games");
             modelBuilder.Entity<Game>().HasKey(ud => ud.ID).HasName("PK_UD");
             modelBuilder.Entity<Game>().Property(ud => ud.ID).HasColumnType("int").IsRequired();
             modelBuilder.Entity<Game>().Property(ud => ud.title).HasColumnType("text").IsRequired();
