@@ -58,6 +58,10 @@ namespace OfflineBacklogManager.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("wishlist")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("ID")
                         .HasName("PK_UD");
 

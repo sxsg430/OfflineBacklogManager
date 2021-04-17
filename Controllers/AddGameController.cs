@@ -16,7 +16,7 @@ namespace OfflineBacklogManager.Controllers
     public class AddGameController : ControllerBase
     {
         [HttpPost]
-        public async Task<string> Post([FromForm] string title, [FromForm] string status, [FromForm] string ownership, [FromForm] string achievement, [FromForm] string achievementmax, [FromForm] string progress, [FromForm] string platform, [FromForm] string playing)
+        public async Task<string> Post([FromForm] string title, [FromForm] string status, [FromForm] string ownership, [FromForm] string achievement, [FromForm] string achievementmax, [FromForm] string progress, [FromForm] string platform, [FromForm] string playing, [FromForm] string wishlist)
         {
             SQL context = HttpContext.RequestServices.GetService(typeof(SQL)) as SQL;
             Game temp = new()
@@ -29,6 +29,7 @@ namespace OfflineBacklogManager.Controllers
                 progress = progress,
                 gamesystem = platform,
                 playing = playing,
+                wishlist = wishlist,
                 appid = ""
             };
             context.AddNewGame(temp);

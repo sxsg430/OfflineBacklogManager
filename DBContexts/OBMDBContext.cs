@@ -29,6 +29,7 @@ namespace OfflineBacklogManager.DBContexts
             modelBuilder.Entity<Game>().Property(ud => ud.achievement_max).HasColumnType("text").IsRequired();
             modelBuilder.Entity<Game>().Property(ud => ud.progress).HasColumnType("text").IsRequired();
             modelBuilder.Entity<Game>().Property(ud => ud.playing).HasColumnType("text").IsRequired();
+            modelBuilder.Entity<Game>().Property(ud => ud.wishlist).HasColumnType("text").IsRequired();
             modelBuilder.Entity<Game>().Property(ud => ud.appid).HasColumnType("text").IsRequired();
         }
     }

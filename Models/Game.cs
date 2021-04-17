@@ -23,8 +23,10 @@ namespace OfflineBacklogManager.Models
         public string achievement_max { get; set; }
         // progress - Text field for current progress information, stored as Base64 to mitigate potential MySQL Unicode issues
         public string progress { get; set; }
-        // playing - Text field for the current playing status (or wishlist).
+        // playing - Is the player playing this game now.
         public string playing { get; set; }
+        // wishlist - Does the player want this game in the future.
+        public string wishlist { get; set; }
         // appid - Stores the App ID for anything imported from a profile, used to track previously imported games to stop duplicate imports. Stored as "steam:<appid>" or "gog:<appid>".
         public string appid { get; set; }
     }
