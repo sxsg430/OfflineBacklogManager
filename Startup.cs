@@ -24,6 +24,7 @@ namespace OfflineBacklogManager
         {
             string mysqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<OBMDBContext>(options => options.UseMySQL(mysqlConnectionString));
+            services.Add(new ServiceDescriptor(typeof(Models.SQL), new Models.SQL(Configuration.GetConnectionString("DefaultConnection"))));
 
 
             services.AddControllersWithViews();

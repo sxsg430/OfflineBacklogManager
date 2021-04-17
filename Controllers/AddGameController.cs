@@ -16,20 +16,22 @@ namespace OfflineBacklogManager.Controllers
     public class AddGameController : ControllerBase
     {
         [HttpPost]
-        public async Task<string> Post([FromForm] string title, [FromForm] string status, [FromForm] string ownership, [FromForm] string achivement, [FromForm] string achievementmax, [FromForm] string progress, [FromForm] string platform)
+        public async Task<string> Post([FromForm] string title, [FromForm] string status, [FromForm] string ownership, [FromForm] string achievement, [FromForm] string achievementmax, [FromForm] string progress, [FromForm] string platform)
         {
-            SQL context = HttpContext.RequestServices.GetService(typeof(OfflineBacklogManager.Models.SQL)) as SQL;
-            Models.Game temp = new Models.Game();
-            temp.title = title;
-            temp.status = status;
-            temp.ownership = ownership;
-            temp.achievement = achivement;
-            temp.achievement_max = achievementmax;
-            temp.progress = progress;
-            temp.gamesystem = platform;
-            temp.playing = 0;
-            temp.wishlist = 0;
-            temp.appid = "";
+            SQL context = HttpContext.RequestServices.GetService(typeof(SQL)) as SQL;
+            Game temp = new()
+            {
+                title = title,
+                status = status,
+                ownership = ownership,
+                achievement = achievement,
+                achievement_max = achievementmax,
+                progress = progress,
+                gamesystem = platform,
+                playing = 0,
+                wishlist = 0,
+                appid = ""
+            };
             context.AddNewGame(temp);
             return JsonSerializer.Serialize(temp);
         }

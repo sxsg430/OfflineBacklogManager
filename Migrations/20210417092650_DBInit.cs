@@ -8,7 +8,7 @@ namespace OfflineBacklogManager.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "UserData",
+                name: "games",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -33,7 +33,7 @@ namespace OfflineBacklogManager.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserData");
+                name: "games");
         }
     }
 }

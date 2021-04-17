@@ -8,7 +8,7 @@ using OfflineBacklogManager.DBContexts;
 namespace OfflineBacklogManager.Migrations
 {
     [DbContext(typeof(OBMDBContext))]
-    [Migration("20210417085855_DBInit")]
+    [Migration("20210417092650_DBInit")]
     partial class DBInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,7 @@ namespace OfflineBacklogManager.Migrations
                     b.HasKey("ID")
                         .HasName("PK_UD");
 
-                    b.ToTable("UserData");
+                    b.ToTable("games");
                 });
 #pragma warning restore 612, 618
         }

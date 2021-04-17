@@ -65,7 +65,7 @@ namespace OfflineBacklogManager.Migrations
                     b.HasKey("ID")
                         .HasName("PK_UD");
 
-                    b.ToTable("UserData");
+                    b.ToTable("games");
                 });
 #pragma warning restore 612, 618
         }
