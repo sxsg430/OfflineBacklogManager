@@ -8,7 +8,7 @@ using OfflineBacklogManager.DBContexts;
 namespace OfflineBacklogManager.Migrations
 {
     [DbContext(typeof(OBMDBContext))]
-    [Migration("20210417092650_DBInit")]
+    [Migration("20210417100214_DBInit")]
     partial class DBInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,10 +57,6 @@ namespace OfflineBacklogManager.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("wishlist")
                         .IsRequired()
                         .HasColumnType("text");
 

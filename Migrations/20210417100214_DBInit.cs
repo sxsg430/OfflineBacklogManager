@@ -21,7 +21,6 @@ namespace OfflineBacklogManager.Migrations
                     achievement_max = table.Column<string>(type: "text", nullable: false),
                     progress = table.Column<string>(type: "text", nullable: false),
                     playing = table.Column<string>(type: "text", nullable: false),
-                    wishlist = table.Column<string>(type: "text", nullable: false),
                     appid = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>

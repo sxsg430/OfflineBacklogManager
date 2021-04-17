@@ -24,7 +24,7 @@ namespace OfflineBacklogManager.Models
         public void AddNewGame(Game input)
         {
             using MySqlConnection conn = GetConnection();
-            string CmdStr = "insert into games (title, gamesystem, ownership, status, achievement, achievement_max, progress, playing, wishlist, appid) VALUES (@GTITLE, @GSYSTEM, @GOWNER, @GSTATUS, @GACH, @GACHMAX, @GPROG, @GPLAYING, @GWISH, @GAPPID)";
+            string CmdStr = "insert into games (title, gamesystem, ownership, status, achievement, achievement_max, progress, playing, appid) VALUES (@GTITLE, @GSYSTEM, @GOWNER, @GSTATUS, @GACH, @GACHMAX, @GPROG, @GPLAYING, @GAPPID)";
             MySqlCommand cmd = new MySqlCommand(CmdStr, conn);
             cmd.Parameters.AddWithValue("@GTITLE", input.title);
             cmd.Parameters.AddWithValue("@GSYSTEM", input.gamesystem);
@@ -34,7 +34,6 @@ namespace OfflineBacklogManager.Models
             cmd.Parameters.AddWithValue("@GACHMAX", input.achievement_max);
             cmd.Parameters.AddWithValue("@GPROG", input.progress);
             cmd.Parameters.AddWithValue("@GPLAYING", input.playing);
-            cmd.Parameters.AddWithValue("@GWISH", input.wishlist);
             cmd.Parameters.AddWithValue("@GAPPID", input.appid);
 
             conn.Open();

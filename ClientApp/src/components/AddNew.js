@@ -6,6 +6,7 @@ import OwnershipDropdown from './ui_components/OwnershipDropdown';
 import Achievement from './ui_components/Achievement';
 import Progress from './ui_components/Progress'
 import PlatformDropdown from './ui_components/PlatformDropdown'
+import Playing from './ui_components/Playing'
 
 export class AddNew extends Component {
     static displayName = AddNew.name;
@@ -20,7 +21,8 @@ export class AddNew extends Component {
             currentAchievement: 0,
             currentAchievementMax: 0,
             currentProgress: '',
-            currentPlatform: ''
+            currentPlatform: '',
+            currentPlaying: ''
         }
 
     }
@@ -60,6 +62,12 @@ export class AddNew extends Component {
         this.setState({ currentPlatform: internalVal });
     }
 
+    updatePlaying = (value) => {
+        let internalVal = value;
+        console.log(internalVal);
+        this.setState({ currentPlaying: internalVal });
+    }
+
     render() {
         return (
             <main>
@@ -69,6 +77,7 @@ export class AddNew extends Component {
                 <Achievement updateState={this.updateAchievement1} updateState2={this.updateAchievement2} />
                 <Progress updateState={this.updateProgress} />
                 <PlatformDropdown updateState={this.updatePlatform} />
+                <Playing updateState={this.updatePlaying} />
                 <br />
                 <br />
                 <form action="/addGame" method="post" encType="multipart/form-data">
@@ -79,6 +88,7 @@ export class AddNew extends Component {
                     <Input type="hidden" name="achievementmax" value={this.state.currentAchievementMax} />
                     <Input type="hidden" name="progress" value={this.state.currentProgress} />
                     <Input type="hidden" name="platform" value={this.state.currentPlatform} />
+                    <Input type="hidden" name="playing" value={this.state.currentPlaying} />
                     <Input type="submit" value="Submit" style={{ width: "100px" }} />
                 </form>
             </main>
