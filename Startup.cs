@@ -68,6 +68,19 @@ namespace OfflineBacklogManager
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+            MigrateDB(app);
+        }
+
+    private void MigrateDB(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<OBMDBContext>();
+                if (context != null && context.Database != null)
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }
