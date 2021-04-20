@@ -22,8 +22,7 @@ namespace OfflineBacklogManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string mysqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<OBMDBContext>(options => options.UseMySQL(mysqlConnectionString));
+            services.AddDbContext<OBMDBContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.Add(new ServiceDescriptor(typeof(Models.SQL), new Models.SQL(Configuration.GetConnectionString("DefaultConnection"))));
 
 

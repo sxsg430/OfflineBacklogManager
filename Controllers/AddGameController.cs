@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using OfflineBacklogManager.Models;
+using OfflineBacklogManager.DBContexts;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -15,10 +16,15 @@ namespace OfflineBacklogManager.Controllers
     [Route("[controller]")]
     public class AddGameController : ControllerBase
     {
+        private OBMDBContext OBContext;
+        public AddGameController(OBMDBContext context)
+        {
+            OBContext = context;
+        }
+
         [HttpPost]
         public async Task<string> Post([FromForm] string title, [FromForm] string status, [FromForm] string ownership, [FromForm] string achievement, [FromForm] string achievementmax, [FromForm] string progress, [FromForm] string platform, [FromForm] string playing, [FromForm] string wishlist)
         {
-            SQL context = HttpContext.RequestServices.GetService(typeof(SQL)) as SQL;
             Game temp = new()
             {
                 title = title,
@@ -32,7 +38,9 @@ namespace OfflineBacklogManager.Controllers
                 wishlist = wishlist,
                 appid = ""
             };
-            context.AddNewGame(temp);
+            OBContext.Games.Add(temp);
+            OBContext.SaveChanges();
+
             return JsonSerializer.Serialize(temp);
         }
     }

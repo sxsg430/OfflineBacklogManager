@@ -4,16 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace OfflineBacklogManager.DBContexts
 {
     public class OBMDBContext : DbContext
     {
+
         public DbSet<Game> Games { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+
+        }
 
         public OBMDBContext(DbContextOptions<OBMDBContext> options) : base(options)
         {
-
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,5 +39,6 @@ namespace OfflineBacklogManager.DBContexts
             modelBuilder.Entity<Game>().Property(ud => ud.wishlist).HasColumnType("text").IsRequired();
             modelBuilder.Entity<Game>().Property(ud => ud.appid).HasColumnType("text").IsRequired();
         }
+
     }
 }
