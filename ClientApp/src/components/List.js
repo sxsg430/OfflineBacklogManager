@@ -16,7 +16,7 @@ export class List extends Component {
             tableData: [],
             tableDataSplit: [],
             tableOffset: 0,
-            gamesPerPage: 2,
+            gamesPerPage: 1,
             currentPage: 0,
             pageCount: 0
         }
@@ -24,7 +24,6 @@ export class List extends Component {
 
     handlePageChangeClick = (e) => {
         const newPage = e.selected;
-        console.log(newPage);
         const offset = Math.ceil(newPage * this.state.gamesPerPage);
 
         this.setState({
@@ -40,8 +39,7 @@ export class List extends Component {
         const tableSlice = localData.slice(this.state.tableOffset, this.state.tableOffset + this.state.gamesPerPage);
 
         this.setState({
-            pageCount: Math.ceil(localData.length / this.state.gamesPerPage),
-            tableData: tableSlice
+            tableDataSplit: tableSlice
         })
     }
 
@@ -92,7 +90,6 @@ export class List extends Component {
         let contents = this.state.loading
             ? <p><em>Loading Contents...</em></p>
             : List.renderGamesList(this.state.tableDataSplit);
-        console.log(this.state.tableDataSplit);
         return (
             <>
                 <div>
@@ -133,7 +130,6 @@ export class List extends Component {
             tableOffset: this.state.tableOffset + this.state.gamesPerPage,
             loading: false
         });
-        console.log(this.state.tableOffset);
     }
 
 
