@@ -1,214 +1,140 @@
 ﻿import React, { Component } from 'react';
-import { Input, Form, FormGroup, Label, Col, Row, Button } from 'reactstrap';
+import './List.css';
+import ReactPaginate from 'react-paginate';
 
 export class List extends Component {
     static displayName = List.name;
     constructor(props) {
         super(props);
-        this.updateStatus = this.updateStatus.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.handlePageChangeClick = this.handlePageChangeClick.bind(this);
 
         this.state = {
-            title: '.',
-            ownership: 'Owned',
-            status: 'Unplayed',
-            platform: 'Steam',
-            achievement: 0,
-            achievementmax: 0,
-            progress: '.',
-            playing: 'false',
-            wishlist: 'false'
+            loadError: false,
+            loading: true,
+            gameData: [],
+            tableData: [],
+            tableDataSplit: [],
+            tableOffset: 0,
+            gamesPerPage: 2,
+            currentPage: 0,
+            pageCount: 0
         }
-
     }
 
+    handlePageChangeClick = (e) => {
+        const newPage = e.selected;
+        console.log(newPage);
+        const offset = Math.ceil(newPage * this.state.gamesPerPage);
 
-    updateTitle = (value) => {
-        let internalVal = value.target.value;
-        this.setState({ title: internalVal });
+        this.setState({
+            currentPage: newPage,
+            tableOffset: offset
+        }, () => {
+            this.fetchMoreEntries();
+        });
+    };
+
+    fetchMoreEntries() {
+        const localData = this.state.tableData;
+        const tableSlice = localData.slice(this.state.tableOffset, this.state.tableOffset + this.state.gamesPerPage);
+
+        this.setState({
+            pageCount: Math.ceil(localData.length / this.state.gamesPerPage),
+            tableData: tableSlice
+        })
     }
 
-    updateOwnership = (value) => {
-        let internalVal = value.target.value;
-        this.setState({ ownership: internalVal });
-    }
-
-    updateStatus = (value) => {
-        let internalVal = value.target.value;
-        this.setState({ status: internalVal });
-    }
-
-    updatePlatform = (value) => {
-        let internalVal = value.target.value;
-        this.setState({ platform: internalVal });
-    }
-
-    updateAchievement1 = (value) => {
-        let internalVal = value.target.value;
-        this.setState({ achievement: internalVal });
-    }
-
-    updateAchievement2 = (value) => {
-        let internalVal = value.target.value;
-        this.setState({ achievementmax: internalVal });
-    }
-
-    updateProgress = (value) => {
-        let internalVal = value.target.value;
-        this.setState({ progress: internalVal });
-    }
-
-    updatePlaying = (value) => {
-        let internalVal = value.target.checked;
-        this.setState({ playing: internalVal });
-    }
-
-    updateWishlist = (value) => {
-        let internalVal = value.target.checked;
-        this.setState({ wishlist: internalVal });
-    }
-
-    async handleSubmit(e) {
-        e.preventDefault();
-        const formDat = new FormData();
-        formDat.append('title', this.state.title);
-        formDat.append('status', this.state.status);
-        formDat.append('ownership', this.state.ownership);
-        formDat.append('achievement', this.state.achievement);
-        formDat.append('achievementmax', this.state.achievementmax);
-        formDat.append('progress', this.state.progress);
-        formDat.append('platform', this.state.platform);
-        formDat.append('playing', this.state.playing);
-        formDat.append('wishlist', this.state.wishlist);
-        const SendOpts = {
-            method: 'POST',
-            body: formDat
+    componentDidMount() {
+        try {
+            this.populateGamesList();
+        } catch {
+            this.setState({ loadError: true });
         }
-        const response = await fetch('AddGame', SendOpts);
-        const data = await response.json();
+    }
+
+    static renderGamesList = (games) => {
+
+        return (
+            <table className='content-table' width="1100">
+                <thead>
+                    <tr>
+                        <th width="20%">Title</th>
+                        <th width="40%">Details</th>
+                        <th width="40%"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {games.map(game =>
+                        <tr key={game.id}>
+                            <td height="120">
+                                {game.title}
+                            </td>
+                            <td height="120">
+                            </td>
+                            <td height="120">
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        );
     }
 
     render() {
+        if (this.state.loadError) {
+            return (
+                <h1>Load Error, WIP</h1>
+            );
+        }
+
+        let contents = this.state.loading
+            ? <p><em>Loading Contents...</em></p>
+            : List.renderGamesList(this.state.tableDataSplit);
+        console.log(this.state.tableDataSplit);
         return (
-            <main>
-                <Form onSubmit={this.handleSubmit}>
-                    <FormGroup row>
-                        <Label for="title">Game Title:</Label>
-                        <Col sm={10}>
-                            <Input type="text" name="title" id="title" placeholder="Game Title" onChange={this.updateTitle} required />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                        <Label for="ownership">Ownership Status:</Label>
-                        <Col sm={10}>
-                            <Input type="select" name="ownership" id="ownership" defaultValue="Owned" onChange={this.updateOwnership}>
-                                <option>Owned</option>
-                                <option>Household</option>
-                                <option>Subscription</option>
-                                <option>Borrowed/Rented</option>
-                                <option>Formerly Owned</option>
-                                <option>Other</option>
-                            </Input>
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                        <Label for="completestatus">Completion Status:</Label>
-                        <Col sm={10}>
-                            <Input type="select" name="completestatus" id="completestatus" defaultValue="Unplayed" onChange={this.updateStatus}>
-                                <option>Unplayed</option>
-                                <option>Incomplete</option>
-                                <option>Beaten</option>
-                                <option>Complete</option>
-                                <option>Mastered</option>
-                                <option>N/A</option>
-                            </Input>
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                        <Label for="platform">Platform:</Label>
-                        <Col sm={10}>
-                            <Input type="select" name="platform" id="platform" defaultValue="Steam" onChange={this.updatePlatform}>
-                                <optgroup label="Computers">
-                                    <option>Amazon Luna</option>
-                                    <option>Battle.Net</option>
-                                    <option>Bethesda Launcher</option>
-                                    <option>Big Fish Games</option>
-                                    <option>Browser</option>
-                                    <option>Desura</option>
-                                    <option>Discord</option>
-                                    <option>DOS</option>
-                                    <option>EA Access</option>
-                                    <option>Epic Games Launcher</option>
-                                    <option>GamersGate</option>
-                                    <option>GameStop PC</option>
-                                    <option>Games For Windows</option>
-                                    <option>GOG.com</option>
-                                    <option>Green Man Gaming</option>
-                                    <option>HTC Vive</option>
-                                    <option>Humble Bundle Store</option>
-                                    <option>IndieGala</option>
-                                    <option>itch.io</option>
-                                    <option>Linux</option>
-                                    <option>Mac</option>
-                                    <option>Nuuvem</option>
-                                    <option>Oculus Store</option>
-                                    <option>Origin</option>
-                                    <option>PC</option>
-                                    <option>PC Downloads</option>
-                                    <option>Rockstar Games Launcher</option>
-                                    <option>Steam</option>
-                                    <option>Prime Gaming</option>
-                                    <option>Uplay</option>
-                                    <option>Windows Store</option>
-                                    <option>Windows Game Pass</option>
-                                </optgroup>
-                                <optgroup label="Apple">
-                                    <option>Apple II</option>
-                                    <option>Apple Arcade</option>
-                                    <option>Apple Bandai Pippin</option>
-                                    <option>iOS</option>
-                                    <option>iPad</option>
-                                    <option>iPod</option>
-                                    <option>iPhone</option>
-                                </optgroup>
-                            </Input>
-                        </Col>
-                    </FormGroup>
-                    <Row>
-                        <Col md={5}>
-                            <FormGroup>
-                                <Label for="achievement">Current Achievements:</Label>
-                                <Input type="text" name="achievement" id="achievement" placeholder="0" onChange={this.updateAchievement1} />
-                            </FormGroup>
-                        </Col>
-                        <Col md={5}>
-                            <FormGroup>
-                                <Label for="achievementmax">Max Achievements:</Label>
-                                <Input type="text" name="achievementmax" id="achievementmax" placeholder="0" onChange={this.updateAchievement2} />
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                    <FormGroup row>
-                        <Label for="progresscomment">Progress Comments:</Label>
-                        <Col sm={10}>
-                            <Input type="text" name="progresscomment" id="progresscomment" placeholder="Comments" onChange={this.updateProgress} required />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup check>
-                        <Label check>
-                            <Input type="checkbox" onChange={this.updatePlaying} />{' '}
-                            Currently Playing
-                        </Label>
-                    </FormGroup>
-                    <FormGroup check>
-                        <Label check>
-                            <Input type="checkbox" onChange={this.updateWishlist} />{' '}
-                            Wishlisted
-                        </Label>
-                    </FormGroup>
-                    <Button color="primary">Submit</Button>
-                </Form>
-            </main>
-        )
+            <>
+                <div>
+                    <div className="Header">
+                        <h1 id="GameTableHead">My Games</h1>
+                    </div>
+                    {contents}
+                </div>
+                <ReactPaginate
+                    previousLabel={"prev"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={this.state.pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={this.handlePageChangeClick}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination"}
+                    activeClassName={"active"} />
+            </>
+        );
     }
+
+    async populateGamesList() {
+        const response = await fetch('listgame');
+        const data = await response.json();
+        this.setState({
+            gameData: data
+        });
+
+        var slice = data.slice(this.state.tableOffset, this.state.tableOffset + this.state.gamesPerPage);
+
+        this.setState({
+            pageCount: Math.ceil(this.state.gameData.length / this.state.gamesPerPage),
+            tableData: this.state.gameData,
+            tableDataSplit: slice,
+            tableOffset: this.state.tableOffset + this.state.gamesPerPage,
+            loading: false
+        });
+        console.log(this.state.tableOffset);
+    }
+
+
 }

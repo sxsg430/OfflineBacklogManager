@@ -1,0 +1,95 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    height: 90vh;
+    width: 100%;
+}
+
+.Header {
+    padding-top: 1%;
+}
+
+.inputstyle {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.groupDropdown {
+    padding-top: 1%;
+    border-radius: 50%;
+}
+
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 1100px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    overflow-y: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+    .content-table thead tr {
+        background-color: #106ca1;
+        color: #ffffff;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .content-table th,
+    .content-table td {
+        padding: 12px 15px;
+    }
+
+    .content-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+        .content-table tbody tr td:nth-child(1) {
+        }
+
+        .content-table tbody tr:last-of-type {
+        }
+
+        .content-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+
+.pagination {
+    margin: 15px auto;
+    display: flex;
+    list-style: none;
+    outline: none;
+}
+
+    .pagination > .active > a {
+        background-color: #106ca1;
+        border-color: #106ca1;
+        color: #fff;
+    }
+
+    .pagination > li > a {
+        border: 1px solid #106ca1;
+        padding: 5px 10px;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+        background-color: #106ca1;
+        border-color: #106ca1;
+        outline: none;
+    }
+
+    .pagination > li > a, .pagination > li > span {
+        color: #106ca1
+    }
+
+    .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span {
+        border-radius: unset
+    }

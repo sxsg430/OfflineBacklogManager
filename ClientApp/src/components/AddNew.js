@@ -86,6 +86,7 @@ export class AddNew extends Component {
         }
         const response = await fetch('AddGame', SendOpts);
         const data = await response.json();
+        console.log(data);
     }
 
     render() {
