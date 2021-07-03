@@ -58,8 +58,8 @@ export class List extends Component {
                 <thead>
                     <tr>
                         <th width="20%">Title</th>
-                        <th width="40%">Details</th>
-                        <th width="40%"></th>
+                        <th width="70%">Details</th>
+                        <th width="10%"></th>
 
                     </tr>
                 </thead>
@@ -72,6 +72,7 @@ export class List extends Component {
                             <td height="120">
                             </td>
                             <td height="120">
+                                <a href={"Edit?ID=" + game.id}>Edit</a>
                             </td>
                         </tr>
                     )}
